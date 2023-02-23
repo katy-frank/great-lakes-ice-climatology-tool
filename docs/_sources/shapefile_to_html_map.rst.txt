@@ -1,0 +1,7 @@
+shapefile\_to\_html\_map module
+===============================
+
+.. automodule:: shapefile_to_html_map
+   :members:
+   :undoc-members:
+   :show-inheritance:

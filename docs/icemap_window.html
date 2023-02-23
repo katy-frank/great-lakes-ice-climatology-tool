@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>icemap_window module &mdash; Great Lakes Ice Climatology Tool  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Great Lakes Ice Climatology Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">icemap_window module</a><ul>
+<li><a class="reference internal" href="#icemap_window.Window"><code class="docutils literal notranslate"><span class="pre">Window</span></code></a><ul>
+<li><a class="reference internal" href="#icemap_window.Window.about"><code class="docutils literal notranslate"><span class="pre">Window.about()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.connectActions"><code class="docutils literal notranslate"><span class="pre">Window.connectActions()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.copyContent"><code class="docutils literal notranslate"><span class="pre">Window.copyContent()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createActions"><code class="docutils literal notranslate"><span class="pre">Window.createActions()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createContextMenu"><code class="docutils literal notranslate"><span class="pre">Window.createContextMenu()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createMap"><code class="docutils literal notranslate"><span class="pre">Window.createMap()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createMapWidget"><code class="docutils literal notranslate"><span class="pre">Window.createMapWidget()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createMenuBar"><code class="docutils literal notranslate"><span class="pre">Window.createMenuBar()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createMonthComboBox"><code class="docutils literal notranslate"><span class="pre">Window.createMonthComboBox()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createToolBars"><code class="docutils literal notranslate"><span class="pre">Window.createToolBars()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createVariableComboBox"><code class="docutils literal notranslate"><span class="pre">Window.createVariableComboBox()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createWeekComboBox"><code class="docutils literal notranslate"><span class="pre">Window.createWeekComboBox()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.cutContent"><code class="docutils literal notranslate"><span class="pre">Window.cutContent()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.helpContent"><code class="docutils literal notranslate"><span class="pre">Window.helpContent()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.month_changed"><code class="docutils literal notranslate"><span class="pre">Window.month_changed()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.newFile"><code class="docutils literal notranslate"><span class="pre">Window.newFile()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.openFile"><code class="docutils literal notranslate"><span class="pre">Window.openFile()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.pasteContent"><code class="docutils literal notranslate"><span class="pre">Window.pasteContent()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.saveFile"><code class="docutils literal notranslate"><span class="pre">Window.saveFile()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.updateMapFilePath"><code class="docutils literal notranslate"><span class="pre">Window.updateMapFilePath()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.updateMapWidget"><code class="docutils literal notranslate"><span class="pre">Window.updateMapWidget()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.variable_changed"><code class="docutils literal notranslate"><span class="pre">Window.variable_changed()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.week_changed"><code class="docutils literal notranslate"><span class="pre">Window.week_changed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Great Lakes Ice Climatology Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">icemap_window module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/icemap_window.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-icemap_window">
+<span id="icemap-window-module"></span><h1>icemap_window module<a class="headerlink" href="#module-icemap_window" title="Permalink to this heading"></a></h1>
+<p>Ice Climatology Tool GUI</p>
+<p>This module builds a GUI for viewing and downloading ice climatology shapefiles. It is imported by <code class="docutils literal notranslate"><span class="pre">main_application.py</span></code> and is currently under construction.</p>
+<p class="rubric">Example</p>
+<p>Example usage, as in the main application driver:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">win</span> <span class="o">=</span> <span class="n">Window</span><span class="p">()</span>
+<span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="icemap_window.Window">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">icemap_window.</span></span><span class="sig-name descname"><span class="pre">Window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<p>Window is the main class for the GUI.</p>
+<p>Window inherits from QMainWindow and constructs the main map view window, the menu bar, and the tool bar.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.about">
+<span class="sig-name descname"><span class="pre">about</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.about" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.connectActions">
+<span class="sig-name descname"><span class="pre">connectActions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.connectActions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.copyContent">
+<span class="sig-name descname"><span class="pre">copyContent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.copyContent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createActions">
+<span class="sig-name descname"><span class="pre">createActions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createActions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createContextMenu">
+<span class="sig-name descname"><span class="pre">createContextMenu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createContextMenu" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createMap">
+<span class="sig-name descname"><span class="pre">createMap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createMap" title="Permalink to this definition"></a></dt>
+<dd><p>First checks if the map we want to view has already been created. Then creates the map if it does not already exist.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createMapWidget">
+<span class="sig-name descname"><span class="pre">createMapWidget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createMapWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Loads the desired HTML map and inserts it into the central widget.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createMenuBar">
+<span class="sig-name descname"><span class="pre">createMenuBar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createMenuBar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createMonthComboBox">
+<span class="sig-name descname"><span class="pre">createMonthComboBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createMonthComboBox" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createToolBars">
+<span class="sig-name descname"><span class="pre">createToolBars</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createToolBars" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createVariableComboBox">
+<span class="sig-name descname"><span class="pre">createVariableComboBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createVariableComboBox" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createWeekComboBox">
+<span class="sig-name descname"><span class="pre">createWeekComboBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createWeekComboBox" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.cutContent">
+<span class="sig-name descname"><span class="pre">cutContent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.cutContent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.helpContent">
+<span class="sig-name descname"><span class="pre">helpContent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.helpContent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.month_changed">
+<span class="sig-name descname"><span class="pre">month_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.month_changed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.newFile">
+<span class="sig-name descname"><span class="pre">newFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.newFile" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.openFile">
+<span class="sig-name descname"><span class="pre">openFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.openFile" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.pasteContent">
+<span class="sig-name descname"><span class="pre">pasteContent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.pasteContent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.saveFile">
+<span class="sig-name descname"><span class="pre">saveFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.saveFile" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.updateMapFilePath">
+<span class="sig-name descname"><span class="pre">updateMapFilePath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.updateMapFilePath" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.updateMapWidget">
+<span class="sig-name descname"><span class="pre">updateMapWidget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.updateMapWidget" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.variable_changed">
+<span class="sig-name descname"><span class="pre">variable_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.variable_changed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.week_changed">
+<span class="sig-name descname"><span class="pre">week_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.week_changed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Kaitlyn Frank.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
