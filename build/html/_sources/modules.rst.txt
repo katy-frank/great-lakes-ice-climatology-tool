@@ -1,9 +1,0 @@
-ice_climatology_tool
-====================
-
-.. toctree::
-   :maxdepth: 4
-
-   icemap_window
-   main_application
-   shapefile_to_html_map

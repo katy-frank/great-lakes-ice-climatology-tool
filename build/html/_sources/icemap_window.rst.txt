@@ -1,7 +1,0 @@
-icemap\_window module
-=====================
-
-.. automodule:: icemap_window
-   :members:
-   :undoc-members:
-   :show-inheritance:
