@@ -37,7 +37,7 @@ class Window(QMainWindow):
 
         Requires that self.shapefileState, self.mapVariable (for individual shapefile mode), self.currentMonth and self.mapDateString are set.
 
-        Example usage:
+        Example:
             Example usage::
                 self.updateMapFilePath()
         """
@@ -86,7 +86,7 @@ class Window(QMainWindow):
     def updateMapWidget(self):
         """Create the map as needed, then load the map and update the central widget.
 
-        Example usage:
+        Example:
             Example usage::
                 self.updateMapWidget()
         """
@@ -134,7 +134,7 @@ class Window(QMainWindow):
     def createContextMenu(self):
         """Create the central widget context menu that will be visible when the user right clicks.
 
-        Example usage:
+        Example:
             Example usage::
                 self.createContextMenu()
         """
@@ -151,7 +151,7 @@ class Window(QMainWindow):
     def createShapefileRadioButtons(self):
         """Create the radio button group that allows the user to view the combined or individual shapefiles on the map (defaults to individual).
 
-        Example usage:
+        Example:
             Example usage::
                 self.createShapefileRadioButtons()
         """
@@ -175,7 +175,7 @@ class Window(QMainWindow):
     def createDateSelector(self):
         """Create the input group that allows the user to select the month and week of climatology data to view.
 
-        Example usage:
+        Example:
             Example usage::
                 self.createDateSelector()
         """
@@ -192,7 +192,7 @@ class Window(QMainWindow):
     def createVariableSelector(self):
         """Create the input group that allows the user to choose which climatology variable to display on the map.
 
-        Example usage:
+        Example:
             Example usage::
                 self.createVariableSelector()
         """
