@@ -42,9 +42,10 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">shapefile_to_html_map module</a><ul>
+<li><a class="reference internal" href="#shapefile_to_html_map.bucketIceConcentration"><code class="docutils literal notranslate"><span class="pre">bucketIceConcentration()</span></code></a></li>
+<li><a class="reference internal" href="#shapefile_to_html_map.bucketIceFrequency"><code class="docutils literal notranslate"><span class="pre">bucketIceFrequency()</span></code></a></li>
+<li><a class="reference internal" href="#shapefile_to_html_map.bucketIceType"><code class="docutils literal notranslate"><span class="pre">bucketIceType()</span></code></a></li>
 <li><a class="reference internal" href="#shapefile_to_html_map.createCombinedIceMap"><code class="docutils literal notranslate"><span class="pre">createCombinedIceMap()</span></code></a></li>
-<li><a class="reference internal" href="#shapefile_to_html_map.createIceConcentrationMap"><code class="docutils literal notranslate"><span class="pre">createIceConcentrationMap()</span></code></a></li>
-<li><a class="reference internal" href="#shapefile_to_html_map.createIceConcentrationWhenPresentMap"><code class="docutils literal notranslate"><span class="pre">createIceConcentrationWhenPresentMap()</span></code></a></li>
 <li><a class="reference internal" href="#shapefile_to_html_map.createIndividualIceMap"><code class="docutils literal notranslate"><span class="pre">createIndividualIceMap()</span></code></a></li>
 <li><a class="reference internal" href="#shapefile_to_html_map.createMap"><code class="docutils literal notranslate"><span class="pre">createMap()</span></code></a></li>
 <li><a class="reference internal" href="#shapefile_to_html_map.determineDisplayAliases"><code class="docutils literal notranslate"><span class="pre">determineDisplayAliases()</span></code></a></li>
@@ -85,6 +86,63 @@
 <p>Ice Climatology Shapefile to HTML Map Generator</p>
 <p>This module provides tools for converting different CIS ice climatology shapefiles into interactive HTML maps that can be loaded into the main GUI.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="shapefile_to_html_map.bucketIceConcentration">
+<span class="sig-prename descclassname"><span class="pre">shapefile_to_html_map.</span></span><span class="sig-name descname"><span class="pre">bucketIceConcentration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapDataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concentrationVariable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shapefile_to_html_map.bucketIceConcentration" title="Permalink to this definition"></a></dt>
+<dd><p>Bucket median ice concentration into the appropriate categories</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapDataFrame</strong> (<em>geopandas</em>) – A geopandas dataframe representation of a CIS combined ice climatology shapefile.</p></li>
+<li><p><strong>concentrationVariable</strong> (<em>str</em>) – Either ‘cpmed’ or ‘ctmed’; the string name of the ice concentation column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of ice concentration category values of equal length to the original input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shapefile_to_html_map.bucketIceFrequency">
+<span class="sig-prename descclassname"><span class="pre">shapefile_to_html_map.</span></span><span class="sig-name descname"><span class="pre">bucketIceFrequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapDataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shapefile_to_html_map.bucketIceFrequency" title="Permalink to this definition"></a></dt>
+<dd><p>Bucket frequency of presence of ice into the appropriate categories</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mapDataFrame</strong> (<em>geopandas</em>) – A geopandas dataframe representation of a CIS combined ice climatology shapefile.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of ice frequency category values of equal length to the original input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shapefile_to_html_map.bucketIceType">
+<span class="sig-prename descclassname"><span class="pre">shapefile_to_html_map.</span></span><span class="sig-name descname"><span class="pre">bucketIceType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapDataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iceTypeVariable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shapefile_to_html_map.bucketIceType" title="Permalink to this definition"></a></dt>
+<dd><p>Bucket predominant ice type into the appropriate categories</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapDataFrame</strong> (<em>geopandas</em>) – A geopandas dataframe representation of a CIS combined ice climatology shapefile.</p></li>
+<li><p><strong>iceTypeVariable</strong> (<em>str</em>) – Either ‘pimed’ or ‘prmed’; the string representing the ice type column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of predominant ice type category values of equal length to the original input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="shapefile_to_html_map.createCombinedIceMap">
 <span class="sig-prename descclassname"><span class="pre">shapefile_to_html_map.</span></span><span class="sig-name descname"><span class="pre">createCombinedIceMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapFilePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapDateString</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapDisplayVariable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shapefile_to_html_map.createCombinedIceMap" title="Permalink to this definition"></a></dt>
 <dd><p>Generate an interactive HTML map from a combined CIS shapefile.</p>
@@ -94,46 +152,6 @@
 <li><p><strong>mapFilePath</strong> (<em>str</em>) – Relative filepath to the CIS shapefile.</p></li>
 <li><p><strong>mapDateString</strong> (<em>str</em>) – Four character string indicating the month and week of the shapefile data (e.g. ‘0108’).</p></li>
 <li><p><strong>mapDisplayVariable</strong> (<em>str</em>) – which of the ice climatologies variables to display</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The name of the generated html map file.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="shapefile_to_html_map.createIceConcentrationMap">
-<span class="sig-prename descclassname"><span class="pre">shapefile_to_html_map.</span></span><span class="sig-name descname"><span class="pre">createIceConcentrationMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapFilePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapDateString</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shapefile_to_html_map.createIceConcentrationMap" title="Permalink to this definition"></a></dt>
-<dd><p>Generate an interactive HTML map from a median ice concentration CIS shapefile.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>mapFilePath</strong> (<em>str</em>) – Relative filepath to the CIS shapefile.</p></li>
-<li><p><strong>mapDateString</strong> (<em>str</em>) – Four character string indicating the month and week of the shapefile data (e.g. ‘0108’).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The name of the generated html map file.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="shapefile_to_html_map.createIceConcentrationWhenPresentMap">
-<span class="sig-prename descclassname"><span class="pre">shapefile_to_html_map.</span></span><span class="sig-name descname"><span class="pre">createIceConcentrationWhenPresentMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapFilePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapDateString</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shapefile_to_html_map.createIceConcentrationWhenPresentMap" title="Permalink to this definition"></a></dt>
-<dd><p>Generate an interactive HTML map from a median ice concentration when ice is present CIS shapefile.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>mapFilePath</strong> (<em>str</em>) – Relative filepath to the CIS shapefile.</p></li>
-<li><p><strong>mapDateString</strong> (<em>str</em>) – Four character string indicating the month and week of the shapefile data (e.g. ‘0108’).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
