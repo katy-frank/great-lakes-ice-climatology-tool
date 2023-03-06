@@ -36,10 +36,6 @@ class Window(QMainWindow):
         """Generate and set the string of the shapefile filepath for self.mapFilePath and the directory for the html maps, self.htmlDir
 
         Requires that self.shapefileState, self.mapVariable (for individual shapefile mode), self.currentMonth and self.mapDateString are set.
-
-        Example:
-            Example usage::
-                self.updateMapFilePath()
         """
         if self.shapefileState == "Combined":
             fileYearSuffix = '_1991_2020_GL.shp' # most months the ice climatology spans 1991-2020
@@ -85,10 +81,6 @@ class Window(QMainWindow):
 
     def updateMapWidget(self):
         """Create the map as needed, then load the map and update the central widget.
-
-        Example:
-            Example usage::
-                self.updateMapWidget()
         """
         self.createMap()
         
@@ -133,10 +125,6 @@ class Window(QMainWindow):
     
     def createContextMenu(self):
         """Create the central widget context menu that will be visible when the user right clicks.
-
-        Example:
-            Example usage::
-                self.createContextMenu()
         """
         # Setting contextMenuPolicy
         self.centralWidget.setContextMenuPolicy(Qt.ActionsContextMenu)
@@ -150,10 +138,6 @@ class Window(QMainWindow):
 
     def createShapefileRadioButtons(self):
         """Create the radio button group that allows the user to view the combined or individual shapefiles on the map (defaults to individual).
-
-        Example:
-            Example usage::
-                self.createShapefileRadioButtons()
         """
         groupBox = QGroupBox("Climatology Shapefiles")
 
@@ -174,10 +158,6 @@ class Window(QMainWindow):
 
     def createDateSelector(self):
         """Create the input group that allows the user to select the month and week of climatology data to view.
-
-        Example:
-            Example usage::
-                self.createDateSelector()
         """
         self.createMonthComboBox()
         self.createWeekComboBox()
@@ -191,10 +171,6 @@ class Window(QMainWindow):
 
     def createVariableSelector(self):
         """Create the input group that allows the user to choose which climatology variable to display on the map.
-
-        Example:
-            Example usage::
-                self.createVariableSelector()
         """
         self.createVariableComboBox()
         groupBox = QGroupBox("Climatology Variable")
