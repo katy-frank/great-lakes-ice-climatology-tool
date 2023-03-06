@@ -10,7 +10,6 @@ Example:
 
 Todo:
     * Uses the ``sphinx.ext.todo`` extension
-    * separate out map creation from gui
     * refactor shared logic into functions
     * github integration of sphinx
     * enable combined map
@@ -22,9 +21,8 @@ Todo:
 from PyQt5.QtCore import Qt, QUrl, QDir
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWebEngineWidgets import QWebEngineView # pip install PyQtWebEngine
-from PyQt5.QtWidgets import QAction, QComboBox, QLabel, QMainWindow, QMenu, QMenuBar, QPushButton, QStyle, QToolBar, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QAction, QComboBox, QGroupBox, QHBoxLayout, QLabel, QMainWindow, QMenu, QMenuBar, QPushButton, QRadioButton, QStyle, QToolBar, QVBoxLayout, QWidget
 
-import geopandas as gpd
 from pathlib import Path
 import shapefile_to_html_map as ShapefileToHTMLMap
 
@@ -33,13 +31,26 @@ class Window(QMainWindow):
 
     Window inherits from QMainWindow and constructs the main map view window, the menu bar, and the tool bar.
     """
+
     def updateMapFilePath(self):
-        fileYearSuffix = '_1991_2020_GL.shp' # most months the ice climatology spans 1991-2020
-        if self.currentMonth == '11' or self.currentMonth == '12':
-            fileYearSuffix = '_1990_2019_GL.shp' # but for the first two ice season months it is 1990-2019
+        """Generate and set the string of the shapefile filepath for self.mapFilePath and the directory for the html maps, self.htmlDir
 
-        self.mapFilePath = './data/CIS/combined/' + self.mapDateString + '/' + self.mapDateString + fileYearSuffix
+        Requires that self.shapefileState, self.mapVariable (for individual shapefile mode), self.currentMonth and self.mapDateString are set.
 
+        Example usage:
+            Example usage::
+                self.updateMapFilePath()
+        """
+        if self.shapefileState == "Combined":
+            fileYearSuffix = '_1991_2020_GL.shp' # most months the ice climatology spans 1991-2020
+            if self.currentMonth == '11' or self.currentMonth == '12':
+                fileYearSuffix = '_1990_2019_GL.shp' # but for the first two ice season months it is 1990-2019
+            self.mapFilePath = './data/CIS/combined/' + self.mapDateString + '/' + self.mapDateString + fileYearSuffix
+            self.htmlDir = "./data/tmp_maps/combined"
+        else:
+            self.mapFilePath = './data/CIS/GL/' + self.mapDateString + '/gl_' + self.mapVariable + self.mapDateString + '/gl_' + self.mapVariable + self.mapDateString + '.shp' 
+            self.htmlDir = "./data/tmp_maps/" + self.mapVariable
+    
     def newFile(self):
         # Logic for creating a new file goes here...
         print("<b>File > New</b> clicked")
@@ -73,9 +84,15 @@ class Window(QMainWindow):
         print("<b>Help > About...</b> clicked")
 
     def updateMapWidget(self):
+        """Create the map as needed, then load the map and update the central widget.
+
+        Example usage:
+            Example usage::
+                self.updateMapWidget()
+        """
         self.createMap()
         
-        directory = QDir("./data/tmp_maps/combined")
+        directory = QDir(self.htmlDir)
         absolutePath = directory.absoluteFilePath(self.htmlMapURL)
         html_map = QUrl.fromLocalFile(absolutePath)
         
@@ -115,6 +132,12 @@ class Window(QMainWindow):
         self.aboutAction.triggered.connect(self.about)
     
     def createContextMenu(self):
+        """Create the central widget context menu that will be visible when the user right clicks.
+
+        Example usage:
+            Example usage::
+                self.createContextMenu()
+        """
         # Setting contextMenuPolicy
         self.centralWidget.setContextMenuPolicy(Qt.ActionsContextMenu)
         # Populating the widget with actions
@@ -125,32 +148,111 @@ class Window(QMainWindow):
         self.centralWidget.addAction(self.pasteAction)
         self.centralWidget.addAction(self.cutAction)
 
+    def createShapefileRadioButtons(self):
+        """Create the radio button group that allows the user to view the combined or individual shapefiles on the map (defaults to individual).
+
+        Example usage:
+            Example usage::
+                self.createShapefileRadioButtons()
+        """
+        groupBox = QGroupBox("Climatology Shapefiles")
+
+        self.combined = QRadioButton("Combined")
+        self.combined.state = "Combined"
+        self.individual = QRadioButton("Individual")
+        self.individual.state = "Individual"
+        self.individual.setChecked(True)
+        self.individual.toggled.connect(self.toggleShapefileState)
+        self.combined.toggled.connect(self.toggleShapefileState)
+
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.combined)
+        hbox.addWidget(self.individual)
+        groupBox.setLayout(hbox)
+
+        self.shapefileRadioButtons = groupBox
+
+    def createDateSelector(self):
+        """Create the input group that allows the user to select the month and week of climatology data to view.
+
+        Example usage:
+            Example usage::
+                self.createDateSelector()
+        """
+        self.createMonthComboBox()
+        self.createWeekComboBox()
+        groupBox = QGroupBox("Timeframe Options")
+
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.monthComboBox)
+        hbox.addWidget(self.weekComboBox)
+        groupBox.setLayout(hbox)
+        self.dateSelectorBox = groupBox
+
+    def createVariableSelector(self):
+        """Create the input group that allows the user to choose which climatology variable to display on the map.
+
+        Example usage:
+            Example usage::
+                self.createVariableSelector()
+        """
+        self.createVariableComboBox()
+        groupBox = QGroupBox("Climatology Variable")
+
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.variableComboBox)
+        groupBox.setLayout(hbox)
+        self.variableSelectorBox = groupBox
+
+    def toggleShapefileState(self):
+        """Toggles the shapefile mode between individual and combined, based on the radio button user input.
+        """
+        radioButton = self.sender()
+        if radioButton.isChecked():
+            self.shapefileState = radioButton.state
+
     def createVariableComboBox(self):
+        """Create the combo box that allows the user to choose the climatology variable to display on the map.
+        """
         self.variableComboBox = QComboBox()
         self.currentVariable = 'ctmed'
         self.variableNameAbbr = ['ctmed','cpmed','icfrq','pimed','prmed']
         self.variableComboBox.addItems(['Median Ice Concentration','Median Ice Concentration when Ice Present','Frequency of Presence of Ice','Median Predominant Ice Type','Median Predominant Ice Type when Ice is Present'])
         # Sends the current index (position) of the selected item.
-        self.variableComboBox.currentIndexChanged.connect( self.variable_changed )
+        self.variableComboBox.currentIndexChanged.connect(self.variableChanged)
 
-    def variable_changed(self,i):
+    def variableChanged(self,i):
+        """When the user selects a climatology variable, set self.mapVariable accordingly.
+        
+        Args:
+            i (int): Index of the climatology variable in the combo box dropdown
+        """
         self.mapVariable = self.variableNameAbbr[i]
 
     def createMonthComboBox(self):
+        """Create the combo box that allows the user to select which month to display data for on the map.
+        """
         self.currentMonth = '11'
         self.monthNametoString = ['11','12','01','02','03','04','05','06']
         self.monthComboBox = QComboBox()
         self.monthComboBox.addItems(['November','December','January','February','March','April','May','June'])
         # Sends the current index (position) of the selected item.
-        self.monthComboBox.currentIndexChanged.connect( self.month_changed )
+        self.monthComboBox.currentIndexChanged.connect(self.monthChanged)
     
     def createWeekComboBox(self):
+        """Create the combo box that allows the user to select which week to display data for on the map.
+        """
         self.weekComboBox = QComboBox()
         self.weekComboBox.addItems(['05','12','19','26']) # november by default
         
-        self.weekComboBox.currentTextChanged.connect( self.week_changed )
+        self.weekComboBox.currentTextChanged.connect(self.weekChanged)
     
-    def month_changed(self, i): # i is an int
+    def monthChanged(self, i):
+        """When the user selects a month, set self.currentMonth and update the week combo box accordingly.
+        
+        Args:
+            i (int): Index of the selected month in the combo box dropdown
+        """
         monthString = self.monthNametoString[i]
         self.currentMonth = monthString
         
@@ -173,34 +275,47 @@ class Window(QMainWindow):
         elif monthString == '12':
             self.weekComboBox.addItems(['04','11','18','25'])
         
-    def week_changed(self, s): 
+    def weekChanged(self, s): 
+        """When the user selects a week, set self.mapDateString and the map filepath accordingly.
+        
+        Args:
+            s (str): Selected week
+        """
         self.mapDateString = self.currentMonth + s
         self.updateMapFilePath()
 
     def createToolBars(self):
+        """Create the toolbar for the application that allows configuring different options for the map.
+        """
         # Using a QToolBar object and a toolbar area
         configToolBar = QToolBar("&Configuration", self)
+        
+        groupBox = QGroupBox("Map Configuration")
+        hbox = QHBoxLayout()
+        
+        self.createShapefileRadioButtons()
+        hbox.addWidget(self.shapefileRadioButtons)
+        #configToolBar.addSeparator()
 
-        configToolBar.addWidget(QLabel("Select the month and week: "))
+        hbox.addWidget(self.dateSelectorBox)
+        #configToolBar.addSeparator()
 
-        configToolBar.addWidget(self.monthComboBox)
-        configToolBar.addWidget(self.weekComboBox)
-
-        configToolBar.addSeparator()
-
-        configToolBar.addWidget(QLabel("Select a climatology variable: "))
-        configToolBar.addWidget(self.variableComboBox)
-
-        configToolBar.addSeparator()
+        hbox.addWidget(self.variableSelectorBox)
+        #configToolBar.addSeparator()
 
         # add button to update map
-        updateButton = QPushButton("Update", self)
+        updateButton = QPushButton("Update Map", self)
         updateButton.pressed.connect(self.updateMapWidget)
-        configToolBar.addWidget(updateButton)
+        hbox.addWidget(updateButton)
+        
+        groupBox.setLayout(hbox)
+        configToolBar.addWidget(groupBox) 
 
         self.addToolBar(Qt.TopToolBarArea, configToolBar)
 
     def createMenuBar(self):
+        """Create the menu bar with options like File and Help for the application.
+        """
         menuBar = self.menuBar()
         # File menu
         fileMenu = QMenu("&File", self)
@@ -221,22 +336,22 @@ class Window(QMainWindow):
         helpMenu.addAction(self.aboutAction)
 
     def createMap(self):
-        """First checks if the map we want to view has already been created. Then creates the map if it does not already exist.
+        """First determines the filepaths and checks if the map we want to view has already been created. Then creates the map if it does not already exist.
         """
         # create a Path object with the path to the file
         self.updateMapFilePath()
 
         self.htmlMapURL = self.mapVariable + "_" + self.mapDateString + ".html"
-        path = Path("./data/tmp_maps/combined/"+self.htmlMapURL)
+        path = Path(self.htmlDir + '/' + self.htmlMapURL)
 
         if not path.is_file():
-            ShapefileToHTMLMap.createMap(self.mapFilePath,self.mapDateString,self.mapVariable)
+            ShapefileToHTMLMap.createMap(self.mapFilePath,self.mapDateString,self.mapVariable,self.shapefileState)
 
     def createMapWidget(self):
         """Loads the desired HTML map and inserts it into the central widget. 
         """
         # load map widget
-        directory = QDir("./data/tmp_maps/combined")
+        directory = QDir(self.htmlDir)
         absolutePath = directory.absoluteFilePath(self.htmlMapURL)
         html_map = QUrl.fromLocalFile(absolutePath)
         
@@ -248,11 +363,10 @@ class Window(QMainWindow):
         super().__init__(parent)
 
         # Configure Map
-        self.mapFilePath = './data/CIS/combined/1105/1105_1990_2019_GL.shp'
         self.currentMonth = '11'
         self.mapDateString = '1105' # default to 11/05
-        self.htmlMapURL = "ctmed_1105.html"
-        self.mapVariable = "ctmed"
+        self.shapefileState = 'Individual'
+        self.mapVariable = 'ctmed'
         self.createMap()
 
         # Configure main window
@@ -273,8 +387,7 @@ class Window(QMainWindow):
         self.createMenuBar()
 
         # Configure Tool Bars
-        self.createMonthComboBox()
-        self.createWeekComboBox()
-        self.createVariableComboBox()
+        self.createDateSelector()
+        self.createVariableSelector()
         self.createToolBars()
 
