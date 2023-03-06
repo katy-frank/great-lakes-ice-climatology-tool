@@ -48,24 +48,28 @@
 <li><a class="reference internal" href="#icemap_window.Window.copyContent"><code class="docutils literal notranslate"><span class="pre">Window.copyContent()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createActions"><code class="docutils literal notranslate"><span class="pre">Window.createActions()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createContextMenu"><code class="docutils literal notranslate"><span class="pre">Window.createContextMenu()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createDateSelector"><code class="docutils literal notranslate"><span class="pre">Window.createDateSelector()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createMap"><code class="docutils literal notranslate"><span class="pre">Window.createMap()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createMapWidget"><code class="docutils literal notranslate"><span class="pre">Window.createMapWidget()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createMenuBar"><code class="docutils literal notranslate"><span class="pre">Window.createMenuBar()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createMonthComboBox"><code class="docutils literal notranslate"><span class="pre">Window.createMonthComboBox()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createShapefileRadioButtons"><code class="docutils literal notranslate"><span class="pre">Window.createShapefileRadioButtons()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createToolBars"><code class="docutils literal notranslate"><span class="pre">Window.createToolBars()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createVariableComboBox"><code class="docutils literal notranslate"><span class="pre">Window.createVariableComboBox()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.createVariableSelector"><code class="docutils literal notranslate"><span class="pre">Window.createVariableSelector()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.createWeekComboBox"><code class="docutils literal notranslate"><span class="pre">Window.createWeekComboBox()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.cutContent"><code class="docutils literal notranslate"><span class="pre">Window.cutContent()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.helpContent"><code class="docutils literal notranslate"><span class="pre">Window.helpContent()</span></code></a></li>
-<li><a class="reference internal" href="#icemap_window.Window.month_changed"><code class="docutils literal notranslate"><span class="pre">Window.month_changed()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.monthChanged"><code class="docutils literal notranslate"><span class="pre">Window.monthChanged()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.newFile"><code class="docutils literal notranslate"><span class="pre">Window.newFile()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.openFile"><code class="docutils literal notranslate"><span class="pre">Window.openFile()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.pasteContent"><code class="docutils literal notranslate"><span class="pre">Window.pasteContent()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.saveFile"><code class="docutils literal notranslate"><span class="pre">Window.saveFile()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.toggleShapefileState"><code class="docutils literal notranslate"><span class="pre">Window.toggleShapefileState()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.updateMapFilePath"><code class="docutils literal notranslate"><span class="pre">Window.updateMapFilePath()</span></code></a></li>
 <li><a class="reference internal" href="#icemap_window.Window.updateMapWidget"><code class="docutils literal notranslate"><span class="pre">Window.updateMapWidget()</span></code></a></li>
-<li><a class="reference internal" href="#icemap_window.Window.variable_changed"><code class="docutils literal notranslate"><span class="pre">Window.variable_changed()</span></code></a></li>
-<li><a class="reference internal" href="#icemap_window.Window.week_changed"><code class="docutils literal notranslate"><span class="pre">Window.week_changed()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.variableChanged"><code class="docutils literal notranslate"><span class="pre">Window.variableChanged()</span></code></a></li>
+<li><a class="reference internal" href="#icemap_window.Window.weekChanged"><code class="docutils literal notranslate"><span class="pre">Window.weekChanged()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -135,12 +139,33 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.createContextMenu">
 <span class="sig-name descname"><span class="pre">createContextMenu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createContextMenu" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Create the central widget context menu that will be visible when the user right clicks.</p>
+<dl class="simple">
+<dt>Example usage:</dt><dd><dl class="simple">
+<dt>Example usage::</dt><dd><p>self.createContextMenu()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createDateSelector">
+<span class="sig-name descname"><span class="pre">createDateSelector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createDateSelector" title="Permalink to this definition"></a></dt>
+<dd><p>Create the input group that allows the user to select the month and week of climatology data to view.</p>
+<dl class="simple">
+<dt>Example usage:</dt><dd><dl class="simple">
+<dt>Example usage::</dt><dd><p>self.createDateSelector()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.createMap">
 <span class="sig-name descname"><span class="pre">createMap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createMap" title="Permalink to this definition"></a></dt>
-<dd><p>First checks if the map we want to view has already been created. Then creates the map if it does not already exist.</p>
+<dd><p>First determines the filepaths and checks if the map we want to view has already been created. Then creates the map if it does not already exist.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -152,27 +177,58 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.createMenuBar">
 <span class="sig-name descname"><span class="pre">createMenuBar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createMenuBar" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Create the menu bar with options like File and Help for the application.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.createMonthComboBox">
 <span class="sig-name descname"><span class="pre">createMonthComboBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createMonthComboBox" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Create the combo box that allows the user to select which month to display data for on the map.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createShapefileRadioButtons">
+<span class="sig-name descname"><span class="pre">createShapefileRadioButtons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createShapefileRadioButtons" title="Permalink to this definition"></a></dt>
+<dd><p>Create the radio button group that allows the user to view the combined or individual shapefiles on the map (defaults to individual).</p>
+<dl class="simple">
+<dt>Example usage:</dt><dd><dl class="simple">
+<dt>Example usage::</dt><dd><p>self.createShapefileRadioButtons()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.createToolBars">
 <span class="sig-name descname"><span class="pre">createToolBars</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createToolBars" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Create the toolbar for the application that allows configuring different options for the map.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.createVariableComboBox">
 <span class="sig-name descname"><span class="pre">createVariableComboBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createVariableComboBox" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Create the combo box that allows the user to choose the climatology variable to display on the map.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.createVariableSelector">
+<span class="sig-name descname"><span class="pre">createVariableSelector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createVariableSelector" title="Permalink to this definition"></a></dt>
+<dd><p>Create the input group that allows the user to choose which climatology variable to display on the map.</p>
+<dl class="simple">
+<dt>Example usage:</dt><dd><dl class="simple">
+<dt>Example usage::</dt><dd><p>self.createVariableSelector()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.createWeekComboBox">
 <span class="sig-name descname"><span class="pre">createWeekComboBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.createWeekComboBox" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Create the combo box that allows the user to select which week to display data for on the map.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.cutContent">
@@ -185,9 +241,15 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="icemap_window.Window.month_changed">
-<span class="sig-name descname"><span class="pre">month_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.month_changed" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="icemap_window.Window.monthChanged">
+<span class="sig-name descname"><span class="pre">monthChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.monthChanged" title="Permalink to this definition"></a></dt>
+<dd><p>When the user selects a month, set self.currentMonth and update the week combo box accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>i</strong> (<em>int</em>) – Index of the selected month in the combo box dropdown</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.newFile">
@@ -210,24 +272,59 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="icemap_window.Window.toggleShapefileState">
+<span class="sig-name descname"><span class="pre">toggleShapefileState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.toggleShapefileState" title="Permalink to this definition"></a></dt>
+<dd><p>Toggles the shapefile mode between individual and combined, based on the radio button user input.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.updateMapFilePath">
 <span class="sig-name descname"><span class="pre">updateMapFilePath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.updateMapFilePath" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Generate and set the string of the shapefile filepath for self.mapFilePath and the directory for the html maps, self.htmlDir</p>
+<p>Requires that self.shapefileState, self.mapVariable (for individual shapefile mode), self.currentMonth and self.mapDateString are set.</p>
+<dl class="simple">
+<dt>Example usage:</dt><dd><dl class="simple">
+<dt>Example usage::</dt><dd><p>self.updateMapFilePath()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="icemap_window.Window.updateMapWidget">
 <span class="sig-name descname"><span class="pre">updateMapWidget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.updateMapWidget" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Create the map as needed, then load the map and update the central widget.</p>
+<dl class="simple">
+<dt>Example usage:</dt><dd><dl class="simple">
+<dt>Example usage::</dt><dd><p>self.updateMapWidget()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="icemap_window.Window.variable_changed">
-<span class="sig-name descname"><span class="pre">variable_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.variable_changed" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="icemap_window.Window.variableChanged">
+<span class="sig-name descname"><span class="pre">variableChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.variableChanged" title="Permalink to this definition"></a></dt>
+<dd><p>When the user selects a climatology variable, set self.mapVariable accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>i</strong> (<em>int</em>) – Index of the climatology variable in the combo box dropdown</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="icemap_window.Window.week_changed">
-<span class="sig-name descname"><span class="pre">week_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.week_changed" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="icemap_window.Window.weekChanged">
+<span class="sig-name descname"><span class="pre">weekChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#icemap_window.Window.weekChanged" title="Permalink to this definition"></a></dt>
+<dd><p>When the user selects a week, set self.mapDateString and the map filepath accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>str</em>) – Selected week</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
