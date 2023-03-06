@@ -4,22 +4,21 @@ This module provides tools for converting different CIS ice climatology shapefil
 """
 import geopandas as gpd
 
-def createIceConcentrationWhenPresentMap(mapFilePath,mapDateString):
-    """Generate an interactive HTML map from a median ice concentration when ice is present CIS shapefile.
+def bucketIceConcentration(mapDataFrame,concentrationVariable):
+    """Bucket median ice concentration into the appropriate categories
 
     Args:
-        mapFilePath (str): Relative filepath to the CIS shapefile.
-        mapDateString (str): Four character string indicating the month and week of the shapefile data (e.g. '0108').
+        mapDataFrame (geopandas): A geopandas dataframe representation of a CIS combined ice climatology shapefile.
+        concentrationVariable (str): Either 'cpmed' or 'ctmed'; the string name of the ice concentation column
 
     Returns:
-        str: The name of the generated html map file.
+        list: An array of ice concentration category values of equal length to the original input.
     """
-    mapDataFrame = gpd.read_file(mapFilePath)
-
-    # bucket concentrations
     result = []
-    for value in mapDataFrame["cpmed"]:
-        if value == None or value == 'X':
+    for value in mapDataFrame[concentrationVariable]:
+        if value == None:
+            result.append('No data')
+        elif value == 'X':
             result.append('X')
         elif value == 'L':
             result.append('Land')
@@ -35,90 +34,75 @@ def createIceConcentrationWhenPresentMap(mapFilePath,mapDateString):
             result.append("10/10")
         else:
             result.append("Less than 1/10")
-    mapDataFrame["Concentration"] = result  
 
-    # filter out land and unknown polygons
-    mapDataFrame.query("cpmed != 'L'",inplace=True)
-    mapDataFrame.query("cpmed != 'X'",inplace=True)
-    mapDataFrame.query("cpmed != 'None'",inplace=True)
+    return result
 
-    cisColorMap = ['lightskyblue','springgreen','yellow','orange','red','darkgrey','lightgrey']
-    concentrationCategories = ['Less than 1/10','1 - 3/10', '4 - 6/10', '7 - 8/10', '9 - 9+/10', '10/10', 'Undefined']
-    
-    iceMap = mapDataFrame.explore(
-        column="Concentration", # color by concentration column
-        tooltip="Concentration", # show "concentration" value in tooltip (on hover)
-        popup=True, # show all values in popup (on click)
-        tiles="CartoDB positron", # use "CartoDB positron" tiles
-        cmap=cisColorMap, # use custom colormap
-        categories=concentrationCategories, # custom categories
-        style_kwds=dict(color="black") # use black outline
-    )
-
-    # save map as html and load it back in
-    short_url = "cpmed_"+mapDateString+".html"
-    url = "./data/tmp_maps/cpmed/"+short_url
-    iceMap.save(url)
-
-    return short_url
-
-def createIceConcentrationMap(mapFilePath,mapDateString):
-    """Generate an interactive HTML map from a median ice concentration CIS shapefile.
+def bucketIceType(mapDataFrame,iceTypeVariable):
+    """Bucket predominant ice type into the appropriate categories
 
     Args:
-        mapFilePath (str): Relative filepath to the CIS shapefile.
-        mapDateString (str): Four character string indicating the month and week of the shapefile data (e.g. '0108').
+        mapDataFrame (geopandas): A geopandas dataframe representation of a CIS combined ice climatology shapefile.
+        iceTypeVariable (str): Either 'pimed' or 'prmed'; the string representing the ice type column
 
     Returns:
-        str: The name of the generated html map file.
+        list: An array of predominant ice type category values of equal length to the original input.
     """
-    mapDataFrame = gpd.read_file(mapFilePath)
-    
-    # bucket concentrations
     result = []
-    for value in mapDataFrame["ctmed"]:
-        if value == None or value == 'X':
+    for value in mapDataFrame[iceTypeVariable]:
+        if value == None:
+            result.append('No data')
+        elif value == 'X':
             result.append('X')
         elif value == 'L':
             result.append('Land')
-        elif value == '10' or value == '20' or value == '30':
-            result.append("1 - 3/10")
-        elif value == '40' or value == '50' or value == '60':
-            result.append("4 - 6/10")
-        elif value == '70' or value == '80':
-            result.append("7 - 8/10")
-        elif value == '90' or value == '91':
-            result.append("9 - 9+/10")
-        elif value == '92':
-            result.append("10/10")
+        elif value == '01':
+            result.append("Ice Free")
+        elif value == '81':
+            result.append("New Lake Ice")
+        elif value == '84':
+            result.append("Thin Lake Ice")
+        elif value == '85' or value == '91':
+            result.append("Medium Lake Ice")
+        elif value == '87':
+            result.append("Thick Lake Ice")
         else:
-            result.append("Less than 1/10")
-    mapDataFrame["Concentration"] = result  
+            result.append("Very Thick Lake Ice")
 
-    # filter out land and unknown polygons
-    mapDataFrame.query("ctmed != 'L'",inplace=True)
-    mapDataFrame.query("ctmed != 'X'",inplace=True)
-    mapDataFrame.query("ctmed != 'None'",inplace=True)
+    return result
 
-    cisColorMap = ['lightskyblue','springgreen','yellow','orange','red','darkgrey','lightgrey']
-    concentrationCategories = ['Less than 1/10','1 - 3/10', '4 - 6/10', '7 - 8/10', '9 - 9+/10', '10/10', 'Undefined']
+def bucketIceFrequency(mapDataFrame):
+    """Bucket frequency of presence of ice into the appropriate categories
+
+    Args:
+        mapDataFrame (geopandas): A geopandas dataframe representation of a CIS combined ice climatology shapefile.
+
+    Returns:
+        list: An array of ice frequency category values of equal length to the original input.
+    """
+    result = []
+    for value in mapDataFrame["icfrq"]:
+        if value == None or int(value) == '-1':
+            result.append('No data')
+        elif float(value) < 0.01: # less than 1%
+            result.append('0 - 1%')
+        elif float(value) < 0.04:
+            result.append('1 - 4%')
+        elif float(value) < 0.17:
+            result.append("4 - 17%")
+        elif float(value) < 0.34:
+            result.append("17 - 34%")
+        elif float(value) < 0.50:
+            result.append("34 - 50%")
+        elif float(value) < 0.67:
+            result.append("50 - 67%")
+        elif float(value) < 0.83:
+            result.append("67 - 83%")
+        elif float(value) < 0.97:
+            result.append("83 - 97%")
+        else:
+            result.append("97 - 100%")
     
-    iceMap = mapDataFrame.explore(
-        column="Concentration", # color by concentration column
-        tooltip="Concentration", # show "concentration" value in tooltip (on hover)
-        popup=True, # show all values in popup (on click)
-        tiles="CartoDB positron", # use "CartoDB positron" tiles
-        cmap=cisColorMap, # use custom colormap
-        categories=concentrationCategories, # custom categories
-        style_kwds=dict(color="black") # use black outline
-    )
-
-    # save map as html and load it back in
-    short_url = "ctmed_"+mapDateString+".html"
-    url = "./data/tmp_maps/ctmed/"+short_url
-    iceMap.save(url)
-
-    return short_url
+    return result
 
 def determineDisplayColorMap(mapDisplayVariable):
     """Determine which color scheme to use based on the map's displayed variable.
@@ -188,119 +172,15 @@ def preprocessMapShapefile(mapDataFrame):
         geopandas: A geopandas dataframe representation of a CIS combined ice climatology shapefile with additional columns.
     """
     # bucket concentrations
-    result = []
-    for value in mapDataFrame["cpmed"]:
-        if value == None:
-            result.append('No data')
-        elif value == 'X':
-            result.append('X')
-        elif value == 'L':
-            result.append('Land')
-        elif value == '10' or value == '20' or value == '30':
-            result.append("1 - 3/10")
-        elif value == '40' or value == '50' or value == '60':
-            result.append("4 - 6/10")
-        elif value == '70' or value == '80':
-            result.append("7 - 8/10")
-        elif value == '90' or value == '91':
-            result.append("9 - 9+/10")
-        elif value == '92':
-            result.append("10/10")
-        else:
-            result.append("Less than 1/10")
-    mapDataFrame["cpmed_proc"] = result
-
-    result = []
-    for value in mapDataFrame["ctmed"]:
-        if value == None:
-            result.append('No data')
-        elif value == 'X':
-            result.append('X')
-        elif value == 'L':
-            result.append('Land')
-        elif value == '10' or value == '20' or value == '30':
-            result.append("1 - 3/10")
-        elif value == '40' or value == '50' or value == '60':
-            result.append("4 - 6/10")
-        elif value == '70' or value == '80':
-            result.append("7 - 8/10")
-        elif value == '90' or value == '91':
-            result.append("9 - 9+/10")
-        elif value == '92':
-            result.append("10/10")
-        else:
-            result.append("Less than 1/10")
-    mapDataFrame["ctmed_proc"] = result  
+    mapDataFrame["cpmed_proc"] = bucketIceConcentration(mapDataFrame,"cpmed")
+    mapDataFrame["ctmed_proc"] = bucketIceConcentration(mapDataFrame,"ctmed")  
 
     # bucket predominant ice types
-    result = []
-    for value in mapDataFrame["pimed"]:
-        if value == None:
-            result.append('No data')
-        elif value == 'X':
-            result.append('X')
-        elif value == 'L':
-            result.append('Land')
-        elif value == '01':
-            result.append("Ice Free")
-        elif value == '81':
-            result.append("New Lake Ice")
-        elif value == '84':
-            result.append("Thin Lake Ice")
-        elif value == '85' or value == '91':
-            result.append("Medium Lake Ice")
-        elif value == '87':
-            result.append("Thick Lake Ice")
-        else:
-            result.append("Very Thick Lake Ice")
-    mapDataFrame["pimed_proc"] = result
+    mapDataFrame["pimed_proc"] = bucketIceType(mapDataFrame,"pimed")
+    mapDataFrame["prmed_proc"] = bucketIceType(mapDataFrame,"prmed")
 
-    result = []
-    for value in mapDataFrame["prmed"]:
-        if value == None:
-            result.append('No data')
-        elif value == 'X':
-            result.append('X')
-        elif value == 'L':
-            result.append('Land')
-        elif value == '01':
-            result.append("Ice Free")
-        elif value == '81':
-            result.append("New Lake Ice")
-        elif value == '84':
-            result.append("Thin Lake Ice")
-        elif value == '85' or value == '91':
-            result.append("Medium Lake Ice")
-        elif value == '87':
-            result.append("Thick Lake Ice")
-        else:
-            result.append("Very Thick Lake Ice")
-    mapDataFrame["prmed_proc"] = result  
-
-    # ice frequency
-    result = []
-    for value in mapDataFrame["icfrq"]:
-        if value == None or int(value) == '-1':
-            result.append('No data')
-        elif float(value) < 0.01: # less than 1%
-            result.append('0 - 1%')
-        elif float(value) < 0.04:
-            result.append('1 - 4%')
-        elif float(value) < 0.17:
-            result.append("4 - 17%")
-        elif float(value) < 0.34:
-            result.append("17 - 34%")
-        elif float(value) < 0.50:
-            result.append("34 - 50%")
-        elif float(value) < 0.67:
-            result.append("50 - 67%")
-        elif float(value) < 0.83:
-            result.append("67 - 83%")
-        elif float(value) < 0.97:
-            result.append("83 - 97%")
-        else:
-            result.append("97 - 100%")
-    mapDataFrame["icfrq_proc"] = result
+    # bucket ice frequency
+    mapDataFrame["icfrq_proc"] = bucketIceFrequency(mapDataFrame)
 
     # remove land and X from the polygons
     mapDataFrame.query("ctmed != 'L'",inplace=True)
@@ -319,119 +199,17 @@ def preprocessIndividualMapShapefile(mapDataFrame,mapDisplayVariable):
     """
     if mapDisplayVariable == "cpmed":
         # bucket concentrations
-        result = []
-        for value in mapDataFrame["cpmed"]:
-            if value == None:
-                result.append('No data')
-            elif value == 'X':
-                result.append('X')
-            elif value == 'L':
-                result.append('Land')
-            elif value == '10' or value == '20' or value == '30':
-                result.append("1 - 3/10")
-            elif value == '40' or value == '50' or value == '60':
-                result.append("4 - 6/10")
-            elif value == '70' or value == '80':
-                result.append("7 - 8/10")
-            elif value == '90' or value == '91':
-                result.append("9 - 9+/10")
-            elif value == '92':
-                result.append("10/10")
-            else:
-                result.append("Less than 1/10")
-        mapDataFrame["cpmed_proc"] = result
+        mapDataFrame["cpmed_proc"] = bucketIceConcentration(mapDataFrame,"cpmed")
     elif mapDisplayVariable == "ctmed":
-        result = []
-        for value in mapDataFrame["ctmed"]:
-            if value == None:
-                result.append('No data')
-            elif value == 'X':
-                result.append('X')
-            elif value == 'L':
-                result.append('Land')
-            elif value == '10' or value == '20' or value == '30':
-                result.append("1 - 3/10")
-            elif value == '40' or value == '50' or value == '60':
-                result.append("4 - 6/10")
-            elif value == '70' or value == '80':
-                result.append("7 - 8/10")
-            elif value == '90' or value == '91':
-                result.append("9 - 9+/10")
-            elif value == '92':
-                result.append("10/10")
-            else:
-                result.append("Less than 1/10")
-        mapDataFrame["ctmed_proc"] = result  
+        mapDataFrame["ctmed_proc"] = bucketIceConcentration(mapDataFrame,"ctmed")
     elif mapDisplayVariable == "pimed":
         # bucket predominant ice types
-        result = []
-        for value in mapDataFrame["pimed"]:
-            if value == None:
-                result.append('No data')
-            elif value == 'X':
-                result.append('X')
-            elif value == 'L':
-                result.append('Land')
-            elif value == '01':
-                result.append("Ice Free")
-            elif value == '81':
-                result.append("New Lake Ice")
-            elif value == '84':
-                result.append("Thin Lake Ice")
-            elif value == '85' or value == '91':
-                result.append("Medium Lake Ice")
-            elif value == '87':
-                result.append("Thick Lake Ice")
-            else:
-                result.append("Very Thick Lake Ice")
-        mapDataFrame["pimed_proc"] = result
+        mapDataFrame["pimed_proc"] = bucketIceType(mapDataFrame,"pimed")
     elif mapDisplayVariable == "prmed":
-        result = []
-        for value in mapDataFrame["prmed"]:
-            if value == None:
-                result.append('No data')
-            elif value == 'X':
-                result.append('X')
-            elif value == 'L':
-                result.append('Land')
-            elif value == '01':
-                result.append("Ice Free")
-            elif value == '81':
-                result.append("New Lake Ice")
-            elif value == '84':
-                result.append("Thin Lake Ice")
-            elif value == '85' or value == '91':
-                result.append("Medium Lake Ice")
-            elif value == '87':
-                result.append("Thick Lake Ice")
-            else:
-                result.append("Very Thick Lake Ice")
-        mapDataFrame["prmed_proc"] = result  
+        mapDataFrame["prmed_proc"] = bucketIceType(mapDataFrame,"prmed") 
     else:
         # ice frequency
-        result = []
-        for value in mapDataFrame["icfrq"]:
-            if value == None or int(value) == '-1':
-                result.append('No data')
-            elif float(value) < 0.01: # less than 1%
-                result.append('0 - 1%')
-            elif float(value) < 0.04:
-                result.append('1 - 4%')
-            elif float(value) < 0.17:
-                result.append("4 - 17%")
-            elif float(value) < 0.34:
-                result.append("17 - 34%")
-            elif float(value) < 0.50:
-                result.append("34 - 50%")
-            elif float(value) < 0.67:
-                result.append("50 - 67%")
-            elif float(value) < 0.83:
-                result.append("67 - 83%")
-            elif float(value) < 0.97:
-                result.append("83 - 97%")
-            else:
-                result.append("97 - 100%")
-        mapDataFrame["icfrq_proc"] = result
+        mapDataFrame["icfrq_proc"] = bucketIceFrequency(mapDataFrame)
 
     # remove land and X from the polygons
     if mapDisplayVariable == "icfrq":
@@ -441,7 +219,6 @@ def preprocessIndividualMapShapefile(mapDataFrame,mapDisplayVariable):
         mapDataFrame.query(mapDisplayVariable+" != 'X'",inplace=True)
 
     return mapDataFrame
-
 
 def createCombinedIceMap(mapFilePath,mapDateString,mapDisplayVariable):
     """Generate an interactive HTML map from a combined CIS shapefile.
